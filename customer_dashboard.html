@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .dashboard {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .registered-concerts,
+        .past-concerts {
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .action-buttons button {
+            margin-left: 10px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .action-buttons .cancel-button {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .action-buttons .review-button {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .personal-rating {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Customer Dashboard</h1>
+    <div class="dashboard">
+        <div class="registered-concerts">
+            <h2>REGISTERED CONCERTS:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Concert Name</th>
+                        <th>Artist:</th>
+                        <th>Date:</th>
+                        <th>Time:</th>
+                        <th>Location:</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>The John Smith Tour</td>
+                        <td>John Smith</td>
+                        <td>3/11/2024</td>
+                        <td>7:00 pm</td>
+                        <td>XYZ Avenue Ln</td>
+                        <td class="action-buttons">
+                            <button class="cancel-button">CANCEL</button>
+                        </td>
+                    </tr>
+                    <!-- Add more rows for registered concerts -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="past-concerts">
+            <h2>PAST CONCERTS:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Concert Name</th>
+                        <th>Artist:</th>
+                        <th>Date:</th>
+                        <th>Time:</th>
+                        <th>Location:</th>
+                        <th>Personal Rating:</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>The John Smith Tour</td>
+                        <td>John Smith</td>
+                        <td>6/23/2023</td>
+                        <td>7:00 pm</td>
+                        <td>XYZ Avenue Ln</td>
+                        <td class="personal-rating">8/10</td>
+                        <td class="action-buttons">
+                            <button class="review-button">LEAVE REVIEW</button>
+                        </td>
+                    </tr>
+                    <!-- Add more rows for past concerts -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

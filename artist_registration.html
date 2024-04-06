@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Registration Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            display: inline-block;
+            text-align: left;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto 0;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Artist Registration Page</h1>
+    <!-- this php handles our actual DB logic -->
+    <form action="register_artist.php" method="post">
+        <label for="first_name">First Name</label>
+        <input type="text" id="first_name" name="first_name" required>
+
+        <label for="last_name">Last Name</label>
+        <input type="text" id="last_name" name="last_name" required>
+
+        <button type="submit">REGISTER</button>
+    </form>
+</body>
+</html>
