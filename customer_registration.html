@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artist Registration Page</title>
+    <title>Customer Registration Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -48,10 +48,16 @@
     </style>
 </head>
 <body>
-    <h1>Artist Registration Page</h1>
-    <form action="register_artist.php" method="post">
-        <label for="artist_name">Name</label>
-        <input type="text" id="artist_name" name="artist_name" required>
+    <h1>Customer Registration Page</h1>
+    <form action="register_customer.php" method="post">
+        <label for="firstname">First Name</label>
+        <input type="text" id="firstname" name="firstname" required>
+        
+        <label for="lastname">Last Name</label>
+        <input type="text" id="lastname" name="lastname" required>
+        
+        <label for="phone_number">Phone Number</label>
+        <input type="text" id="phone_number" name="phone_number" required>
         
         <label for="email">Email</label>
         <input type="text" id="email" name="email" required>
