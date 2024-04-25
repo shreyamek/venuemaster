@@ -1,3 +1,80 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+if(isset($_GET['concert_id'])) {
+    $concertID = $_GET['concert_id'];
+} else {
+    $concertID = 0; // default value or handle error
+}
+
+if(isset($_GET['ticket_id'])) {
+    $ticketID = $_GET['ticket_id'];
+} else {
+    $ticketID = 0; // default value or handle error
+}
+
+if(isset($_GET['track_id'])) {
+    $track_id = $_GET['track_id'];
+} else {
+    $track_id = 0; // default value or handle error
+}
+
+if(isset($_GET['artist_id'])) {
+    $artistID = $_GET['artist_id'];
+} else {
+    $artistID = 0; // default value or handle error
+}
+
+// Database connection parameters
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "venue_master_db"; // Change this to your actual database name
+
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Check if form was submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $concert_name = $_POST['concert_name'];
+    $concert_date = $_POST['concert_date'];
+    $concert_location = $_POST['concert_location'];
+    $concert_time = $_POST['concert_time'];
+    $song_name = $_POST['song_name'];
+    $ticket_types = $_POST['ticket_type'];
+    $ticket_quantities = $_POST['ticket_quantity'];
+
+    $sql = "INSERT INTO Concert (Concert_ID, Concert_Name, Location, Date, Time, Artist_ID) VALUES ('$concertID', '$concert_name', '$concert_location', '$concert_date', '$concert_time', 1)";
+    if ($conn->query($sql) === TRUE) {
+        // Insert songs
+        foreach ($song_name as $key => $song_name) {
+            $sql = "INSERT INTO TrackList (Track_ID, Track_Name, Concert_ID) VALUES ('$track_id', '$song_name', '$concertID')";
+            $conn->query($sql);
+        }
+
+        // Insert tickets
+        foreach ($ticket_types as $key => $ticket_type) {
+            $ticket_quantity = $ticket_quantities[$key];
+            $sql = "INSERT INTO Tickets (Ticket_ID, Ticket_Type, Availability, Purchase_ID, Concert_ID) VALUES ('$ticketID', '$ticket_type', 1, Null, '$concertID')";
+            $conn->query($sql);
+        }
+
+        echo "Form submitted successfully!";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+// Close connection
+$conn->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>

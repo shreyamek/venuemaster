@@ -120,6 +120,10 @@
 				die("Connection failed: " . $conn->connect_error);
 			}
 
+			if (isset($_GET['id'])) {
+				$id = $_GET['id'];
+			}
+			
 			// function to get the price
 			function getPriceForTicketType($conn, $ticket_type) {
 				// Query the database to retrieve the price of the ticket type
@@ -182,6 +186,34 @@
 			<button type="submit" class="buy-ticket-button">Purchase Ticket</button>
 		</div>
 	</form>
+
+	<input type="hidden" name="ticket_type" id="selected_ticket_type" value="">
+	
+	<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ticketOptions = document.querySelectorAll('.ticket-option');
+        ticketOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                ticketOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                // Get the selected ticket type
+                const selectedTicketType = this.querySelector('h3').textContent;
+                // Update the hidden input value
+                document.getElementById('selected_ticket_type').value = selectedTicketType;
+            });
+        });
+
+        // Handle form submission
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            const ticketType = document.getElementById('selected_ticket_type').value;
+            const customerId = <?php echo json_encode($id); ?>; // Get customer ID from PHP
+            // Redirect to process_ticket.php with the selected ticket type and customer ID in the URL
+            window.location.href = `process_ticket.php?ticket_type=${encodeURIComponent(ticketType)}&id=${encodeURIComponent(customerId)}`;
+        });
+    });
+	</script>
 </body>
 
 </html>

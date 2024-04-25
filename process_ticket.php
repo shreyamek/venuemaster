@@ -17,9 +17,11 @@ if ($conn->connect_error) {
 }
 
 // Check if form was submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve selected ticket type
-    $ticket_type = $_POST['ticket_type'];
+// Check if the ticket_type parameter is set in the URL
+if (isset($_GET['ticket_type']) && isset($_GET['id'])) {
+    $ticket_type = $_GET['ticket_type'];
+    $customer_ID = $_GET['id'];
+    // Proceed with processing the ticket type...
 
     // Fetch next available ticket for the selected type
     $sql_next_ticket = "SELECT Ticket_ID FROM Tickets WHERE Ticket_Type = '$ticket_type' AND Availability = 1 LIMIT 1";
@@ -32,8 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Insert data into Orders table
         $purchase_date = date("Y-m-d H:i:s");
-        $customer_id = 1; // Assuming you have a way to identify the customer, replace with actual customer ID
-        $sql_insert_order = "INSERT INTO Orders (Purchase_Date, Customer_ID) VALUES ('$purchase_date', '$customer_id')";
+        $sql_insert_order = "INSERT INTO Orders (Purchase_Date, Customer_ID) VALUES ('$purchase_date', '$customer_ID')";
         
         if ($conn->query($sql_insert_order) === TRUE) {
             $purchase_id = $conn->insert_id;
@@ -62,3 +63,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Close connection
 $conn->close();
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Confirmation</title>
+    <style>
+        .return-button {
+            display: inline-block;
+            margin: 10px auto 0;
+            background-color: #333; /* Adjust color as needed */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .return-button:hover {
+            background-color: #555; /* Adjust hover color as needed */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Your existing HTML content -->
+
+    <h2> Your ticket was successfully purchased!</h2>
+    <a href="customer_dashboard.php?id=<?php echo $id; ?>" class="return-button">Return to Customer Dashboard</a>
+</body>
+
+</html>

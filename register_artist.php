@@ -1,41 +1,33 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-$first_name = $_POST['first_name'];
-$last_name = $_POST['last_name'];
-// Database connection parameters
+// Database connection details
 $servername = "localhost";
 $username = "root";
 $password = "";
-$database = "venue_master_db";
+$dbname = "venue_master_db";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
+// Retrieve the submitted artist details
+$artist_name = $_POST['artist_name'];
+$email = $_POST['email'];
+$u_password = $_POST['password'];
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+try {
+    // Create a new PDO instance
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+    // Prepare the SQL statement to insert the artist details into the Artists table
+    $stmt = $pdo->prepare("INSERT INTO Artists (Artist_Name, Email, Password) VALUES (?, ?, ?)");
+
+    // Execute the prepared statement with the artist details
+    $stmt->execute([$artist_name, $email, $u_password]);
+
+    // Get the last inserted artist ID
+    $artist_ID = $pdo->lastInsertId();
+
+    // Registration successful, redirect to the artist dashboard with the artist ID
+    header("Location: artist_dashboard.php?id=$artist_ID");
+    exit();
+} catch (PDOException $e) {
+    // Handle database errors
+    echo "Database error: " . $e->getMessage();
 }
-
-// Check if form was submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
-    
-
-    $artist_name = $first_name . ' ' . $last_name;
-
-    // Perform validation/sanitization if needed
-
-    // Insert data into database
-    $sql = "INSERT INTO Artist (Artist_Name) VALUES ('$artist_name')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-}
-
-// Close connection
-$conn->close();
 ?>
