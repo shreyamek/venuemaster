@@ -81,8 +81,8 @@
         </thead>
         <tbody>
           <?php
-          if (isset($_GET['id'])) {
-            $customerID = $_GET['id'];
+          if (isset($_GET['customer_ID'])) {
+            $customerID = $_GET['customer_ID'];
           } else {
             // Handle the case where artist_id is not provided
             $customerID = 0; // default value or handle error
@@ -98,15 +98,13 @@
           $conn = new mysqli($servername, $username, $password, $dbname);
 
 
-          //TEST
-          $customerID = 1;
           // Check connection
           if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
           }
 
           // SQL query to fetch registered concerts for the specified customer and with date greater than current date
-          $registered_concerts_query = "SELECT Concert.Concert_ID, Concert.Concert_Name, Artists.Artist_Name, Concert.Date, Concert.Time, Concert.Location, Tickets.Ticket_ID
+          $registered_concerts_query = "SELECT Orders.Purchase_ID, Concert.Concert_ID, Concert.Concert_Name, Artists.Artist_Name, Concert.Date, Concert.Time, Concert.Location, Tickets.Ticket_ID
                                         FROM Concert
                                         INNER JOIN Artists ON Artists.Artist_ID = Concert.Artist_ID
                                         INNER JOIN Tickets ON Tickets.Concert_ID = Concert.Concert_ID
@@ -122,7 +120,7 @@
               echo "<td>" . $row["Date"] . "</td>";
               echo "<td>" . $row["Time"] . "</td>";
               echo "<td>" . $row["Location"] . "</td>";
-              echo "<td><a href='cancel_registration.php?ticket_id=" . $row["Ticket_ID"] . "&customer_id=" . $customerID . "' class='action-buttons'><button class='cancel-button'>Cancel</button></a></td>";
+              echo "<td><a href='cancel_registration.php?ticket_id=" . $row["Purchase_ID"] . "&customer_id=" . $customerID . "' class='action-buttons'><button class='cancel-button'>Cancel</button></a></td>";
               echo "</tr>";
             }
           } else {
@@ -151,8 +149,8 @@
         </thead>
         <tbody>
           <?php
-          if (isset($_GET['id'])) {
-            $customerID = $_GET['id'];
+          if (isset($_GET['customer_ID'])) {
+            $customerID = $_GET['customer_ID'];
           } else {
             // Handle the case where artist_id is not provided
             $customerID = 0; // default value or handle error
@@ -198,17 +196,24 @@
           }
 
           // Generate the link to purchase_ticket.php with customer ID in the URL parameters
-          $purchase_link = "purchase_ticket.php?id=$customerID";
-
-
           // Close connection
           $conn->close();
           ?>
         </tbody>
       </table>
+      <p></p>
+      <p></p>
+      <?php
+      if (isset($_GET['customer_ID'])) {
+        $customerID = $_GET['customer_ID'];
+      } else {
+        // Handle the case where artist_id is not provided
+        $customerID = 0; // default value or handle error
+      }
+      echo "<a href='purchase_ticket.php?id=" . $customerID . "'>Purchase Tickets</a>";
+      ?>
     </div>
     <!-- Link to purchase_ticket.php with customer ID included -->
-    <a href="<?php echo $purchase_link; ?>">Purchase Tickets</a>
   </div>
 </body>
 </html>

@@ -96,7 +96,10 @@ $conn->close();
     <!-- Your existing HTML content -->
 
     <h2> Your ticket was successfully purchased!</h2>
-    <a href="customer_dashboard.php?id=<?php echo $id; ?>" class="return-button">Return to Customer Dashboard</a>
+    <?php
+    $customer_ID = $_GET['id'];
+    echo "<a href='customer_dashboard.php?customer_ID=" . $customer_ID . "'>Return to Customer Dashboard</a>";
+    ?>
 </body>
 
 </html>

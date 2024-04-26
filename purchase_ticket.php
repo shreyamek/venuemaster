@@ -209,6 +209,7 @@
             event.preventDefault(); // Prevent default form submission
             const ticketType = document.getElementById('selected_ticket_type').value;
             const customerId = <?php echo json_encode($id); ?>; // Get customer ID from PHP
+			console.log(customerId);
             // Redirect to process_ticket.php with the selected ticket type and customer ID in the URL
             window.location.href = `process_ticket.php?ticket_type=${encodeURIComponent(ticketType)}&id=${encodeURIComponent(customerId)}`;
         });

@@ -248,7 +248,7 @@
 			<div class="profile-section">
 				<div class="profile">
 					<h2>PROFILE</h2>
-					<p>Name: John Smith</p>
+					<button onclick="window.location.href='update_artist_password.html?id=<?php echo $artist_id; ?>'">Change Password</button>
 					<!--<p>Genre: Rap</p> -->
 					<!-- <p>Bio: I'm John Smith</p> -->
 					<button>Edit</button>
